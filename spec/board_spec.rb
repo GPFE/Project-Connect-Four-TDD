@@ -171,12 +171,32 @@ describe Board do
       end
     end
 
-    context 'when diagonal is occupied by a "x" player' do
+    context 'when bottom left to top right diagonal is occupied by a "x" player' do
       it 'returns winner' do
         instance_variable_set(:@player, 'x')
         board_check.instance_variable_set(:@player_moves,
                                           { 'x' => [nil, [3], [2], [1], [0]],
                                             'y' => [nil, nil, [3], [2, 3], [1, 2, 3]] })
+
+        expect(board_check.check_for_wictory).to eq('x wins')
+      end
+    end
+
+  context 'when top right to bottom left diagonal is occupied by a "x" player' do
+      it 'returns winner' do
+        instance_variable_set(:@player, 'x')
+        board_check.instance_variable_set(:@player_moves,
+                                        {"y"=>[nil, nil, [0], [0, 1], [0, 1, 2]], "x"=>[nil, [0], [1], [2], [3]]})
+
+        expect(board_check.check_for_wictory).to eq('x wins')
+      end
+    end
+
+  context 'when the column is occupied by a "x" player' do
+      it 'returns winner' do
+        instance_variable_set(:@player, 'x')
+        board_check.instance_variable_set(:@player_moves,
+                                        {"x"=>[nil, [0], [0], [0], [0]]})
 
         expect(board_check.check_for_wictory).to eq('x wins')
       end
